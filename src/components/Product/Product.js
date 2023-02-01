@@ -9,6 +9,12 @@ const Product = props => {
 
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.sizes[0].name);
+  const [currentPrice, setCurrentPrice] = useState(props.sizes[0].additionalPrice);
+  
+  const getPrice = () => {
+    return (
+      props.basePrice + currentPrice
+    )};
 
   const prepareColorClassName = color => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
@@ -25,14 +31,17 @@ const Product = props => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {props.basePrice}$</span>
+          <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
         <form>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
               {props.sizes?.map(size => <li key={shortid()}>
-                <button type="button" className={size.name && currentSize === size.name ? styles.active : undefined}>
+                <button type="button" className={size.name && currentSize === size.name ? styles.active : undefined}
+                onClick={() => 
+                {setCurrentSize(size.name);
+                setCurrentPrice(size.additionalPrice)}}>
                   {`${size.name}`}
                   </button></li>)}
             </ul>
@@ -42,7 +51,8 @@ const Product = props => {
             <ul className={styles.choices}>
               {props.colors?.map(color => <li key={shortid()}>
                 <button type="button" className={clsx(prepareColorClassName(color),
-                currentColor === color && styles.active)}></button></li>)}
+                currentColor === color && styles.active)}
+                onClick={() => setCurrentColor(color)}></button></li>)}
             </ul>
           </div>
           <Button className={styles.button}>
@@ -56,20 +66,11 @@ const Product = props => {
 
 Product.propTypes = {props: PropTypes.func.isRequired}
 
-export default Product;
+export default Product; 
 
-/*{currentSize.map(size => <li key={size.id}><button type="button" className={styles.active}>$'{currentSize}'</button></li>)}
-
-              <li><button type="button" className={styles.active}>S</button></li>
-              <li><button type="button">M</button></li>
-              <li><button type="button">L</button></li>
-              <li><button type="button">XL</button></li>
-
-              {props.colors?.map(color => <li key={shortId()}> <button type="button" className={clsx(prepareColorClassName(color), currentColor === color && styles.active)}></button></li>)}
-
-              <li><button type="button" className={clsx(styles.colorBlack, styles.active)} /></li>
-              <li><button type="button" className={clsx(styles.colorRed)} /></li>
-              <li><button type="button" className={clsx(styles.colorWhite)} /></li>
+/* const getPrice = () => {
+    return (
+      props.baseBrice + setCurrentPrice(additionalPrice)
+    )}
 
 */ 
-

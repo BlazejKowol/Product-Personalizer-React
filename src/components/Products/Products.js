@@ -14,5 +14,3 @@ const Products = () => {
 };
 
 export default Products;
-
-/*{products.map(product => <Product key={product.id} id={product.id} name={product.name} title={product.title} colors={product.colors} sizes={product.sizes} basePrice={product.basePrice} />)}*/
