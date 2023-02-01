@@ -20,6 +20,12 @@ const Product = props => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(props.title, getPrice(), currentSize, currentColor);
+  }
+
+
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
@@ -33,7 +39,7 @@ const Product = props => {
           <h2 className={styles.name}>{props.title}</h2>
           <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
-        <form>
+        <form onClick={handleSubmit}>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
@@ -67,10 +73,3 @@ const Product = props => {
 Product.propTypes = {props: PropTypes.func.isRequired}
 
 export default Product; 
-
-/* const getPrice = () => {
-    return (
-      props.baseBrice + setCurrentPrice(additionalPrice)
-    )}
-
-*/ 
